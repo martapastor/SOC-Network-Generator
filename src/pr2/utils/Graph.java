@@ -1,4 +1,4 @@
-package practica2;
+package pr2.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
