@@ -167,6 +167,33 @@ public abstract class Graph<T> {
 	}
 	
 	/**
+	 * Gets the density of a graph
+	 * 
+	 * @return the density
+	 */
+	public double getGraphDensity() {
+		double potentialConnections = 1;
+		double totalConnections = 0;
+		
+        for (int i = 1; i <= getNumberOfNodes(); i++) { // potentialConnections = factorial(getNumberOfNodes())
+        	potentialConnections *= i;
+        }
+		
+		List<T> tmpNodes = new ArrayList<T>();
+		for (Map.Entry<T, HashMap<T, Integer>> node : this.g.entrySet()) {
+			for (Map.Entry<T, Integer> connections : node.getValue().entrySet()) {
+				if (!tmpNodes.contains(connections.getKey())) { // Avoid duplicates
+					totalConnections++;
+				}
+			}
+			tmpNodes.add(node.getKey());
+		}
+		
+		return totalConnections / potentialConnections;
+	}
+	
+
+	/**
 	 * Returns a string with all the nodes and all their connections.
 	 */
 	public String toString() {
