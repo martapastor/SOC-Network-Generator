@@ -140,6 +140,16 @@ public abstract class Graph<T> {
 	}
 	
 	/**
+	 * Gets the number of nodes connected to the specified node in the graph.
+	 * 
+	 * @param n specified node
+	 * @return number of connections of specified node
+	 */
+	public int getNumberOfConnectionsOfNode(T n) {
+		return this.g.get(n).size();
+	}
+	
+	/**
 	 * Sets the weight of a connection between two given nodes.
 	 * 
 	 * @param n1 One of the nodes in the graph
