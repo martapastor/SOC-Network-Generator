@@ -33,9 +33,9 @@ public class SwingView extends JFrame {
 	
 	private static Integer bondsProb = 10;
 	
-	private static Integer numInitBonds = 1000;
+	private static Integer numInitBonds = 4;
 	
-	private static Integer numSteps = 4;
+	private static Integer numSteps = 1000;
 	
 	private static Boolean error = false;
 	
@@ -274,7 +274,7 @@ public class SwingView extends JFrame {
 					
 				}
 				else {
-					System.out.println("Something went wrong...");
+					System.err.println("Something went wrong...");
 				}
 				
 				resultsWindow(igraph, error);
