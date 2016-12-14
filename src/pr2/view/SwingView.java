@@ -42,15 +42,20 @@ public class SwingView extends JFrame {
 	
 	// Model and controller objects
 	
-		private GeneratorController ctrl = new GeneratorController();
-		
-		private NetworkResults model = new NetworkResults();
+	private GeneratorController ctrl = new GeneratorController();
 	
-	public SwingView() {	
-		
+	private NetworkResults model = new NetworkResults();
+	
+	/**
+	 * SwingView constructor
+	 */
+	public SwingView() {
 		initWindow();
 	}
 	
+	/**
+	 * Initializes the window and its components
+	 */
 	private void initWindow() {
 		//ImageIcon icon = new ImageIcon("icon.png");
 		//this.setIconImage(icon.getImage());
@@ -322,7 +327,7 @@ public class SwingView extends JFrame {
 		JPanel creditsPanel = new JPanel();
 		creditsPanel.setPreferredSize(new Dimension(600, 80));
 		
-		JTextArea creditsText = new JTextArea("Developed by Daniel GarcÃ­a Baameiro, Pablo GarcÃ­a de los Salmones Valencia" +  
+		JTextArea creditsText = new JTextArea("Developed by Daniel García Baameiro, Pablo García de los Salmones Valencia" +  
 				" and Marta Pastor Puente for Social Network Analysis subject" +  
 				" at Universidad Complutense de Madrid."); 
 		creditsText.setPreferredSize(new Dimension(390, 200));

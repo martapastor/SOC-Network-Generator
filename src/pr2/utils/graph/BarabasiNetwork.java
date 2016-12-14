@@ -15,6 +15,9 @@ public class BarabasiNetwork extends Graph<Integer> {
 		regenerateNetwork();
 	}
 	
+	/**
+	 * Generates the network again as a Barabasi network
+	 */
 	public void regenerateNetwork() {
 		// Initial number of nodes: m_0 = m + 1, where m is the number of bonds a new node enter in the network with.
 		// igraph.getNodeList().size = m_0 + t, where t is the number of the steps (i.e. the number of nodes added).

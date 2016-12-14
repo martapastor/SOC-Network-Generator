@@ -21,7 +21,4 @@ public class CustomNetwork<T> extends Graph<T> {
 		// TODO Read files and load data into graph
 	}
 	
-	public void regenerateNetwork() {
-		super.regenerateNetwork();
-	}
 }

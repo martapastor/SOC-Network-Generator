@@ -15,6 +15,9 @@ public class RandomNetwork extends Graph<Integer> {
 		regenerateNetwork();
 	}
 	
+	/**
+	 * Generates the network again as a Random network
+	 */
 	public void regenerateNetwork() {
 		for (int i = 0; i < this.numInitNodes; i++) { // Add numInitNodes nodes (the "object" used for the node is an integer, so nodes will be: 0, 1, 2, 3, ...)
 			nodeInsert(i);
