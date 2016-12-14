@@ -167,16 +167,16 @@ public abstract class Graph<T> {
 	}
 	
 	/**
-	 * Gets the density of a graph
+	 * Gets the density of a graph.
 	 * 
 	 * @return the density
 	 */
 	public double getGraphDensity() {
-		double potentialConnections = 1;
+		double potentialConnections = 0;
 		double totalConnections = 0;
 		
-        for (int i = 1; i <= getNumberOfNodes(); i++) { // potentialConnections = factorial(getNumberOfNodes())
-        	potentialConnections *= i;
+        for (int i = getNumberOfNodes() - 1; i > 0; i--) { 
+        	potentialConnections += i;
         }
 		
 		List<T> tmpNodes = new ArrayList<T>();
