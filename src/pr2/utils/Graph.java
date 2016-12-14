@@ -136,16 +136,28 @@ public class Graph<T> {
 	}
 	
 	/**
+	 * Returns a string with all the nodes, in CVS format.
+	 */
+	public String nodesToCSVstring() { // This prints connected nodes in pairs. This would be like "edges.csv".
+		StringBuilder s = new StringBuilder();
+		s.append("Id;Label\n");
+		for (Map.Entry<T, HashMap<T, Integer>> node : this.g.entrySet()) {
+			s.append(node.getKey() + ";" + node.getKey() + "\n");
+		}
+		return s.toString();
+	}
+	
+	/**
 	 * Returns a string with all the nodes and all their connections, in CVS format.
 	 */
-	public String toCSVstring() { // This prints connected nodes in pairs. This would be like "edges.csv".
+	public String edgesToCSVstring() { // This prints connected nodes in pairs. This would be like "edges.csv".
 		List<T> tmpNodes = new ArrayList<T>();
 		StringBuilder s = new StringBuilder();
-		s.append("Node1;Node2;Weight\n");
+		s.append("Source;Target;Weight;Type\n");
 		for (Map.Entry<T, HashMap<T, Integer>> node : this.g.entrySet()) {
 			for (Map.Entry<T, Integer> connections : node.getValue().entrySet()) {
 				if (!tmpNodes.contains(connections.getKey())) { // Avoid duplicates
-					s.append(node.getKey() + ";" + connections.getKey()+";"+connections.getValue()+"\n");
+					s.append(node.getKey() + ";" + connections.getKey()+";"+connections.getValue()+";Undirected\n");
 				}
 			}
 			tmpNodes.add(node.getKey());

@@ -7,7 +7,7 @@ import java.io.PrintStream;
 public class NetworkResults {
 	
 	public NetworkResults() {
-		
+		// If results folder does not exist, we must create it.
 	}
 	
 	public PrintStream readResults(String type) {
@@ -16,13 +16,25 @@ public class NetworkResults {
 		return out;
 	}
 	
-	public PrintStream saveResults(String type, Integer param1, Integer param2) {
+	public PrintStream saveNodesResults(String type, Integer param1, Integer param2) {
 		PrintStream out = null;
 		try {
-			out = new PrintStream(new FileOutputStream("results/" + type + "_" + param1 + "_" + param2 + ".csv"));
+			out = new PrintStream(new FileOutputStream("results/" + type + "_" + param1 + "_" + param2 + "_nodes.csv"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// e.printStackTrace();
+		}
+		
+		return out;
+	}
+	
+	public PrintStream saveEdgesResults(String type, Integer param1, Integer param2) {
+		PrintStream out = null;
+		try {
+			out = new PrintStream(new FileOutputStream("results/" + type + "_" + param1 + "_" + param2 + "_edges.csv"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
 		}
 		
 		return out;

@@ -37,7 +37,7 @@ public class SwingView extends JFrame {
 	
 	private static Integer numSteps = 4;
 	
-	private static Boolean error = true;
+	private static Boolean error = false;
 	
 	// Model and controller objects
 	
@@ -165,28 +165,34 @@ public class SwingView extends JFrame {
 		saveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				PrintStream out;
+				PrintStream nodesOut, edgesOut;
 				
 				//
 				
 				if (type == "random") {
-					out = model.saveResults(type, numInitNodes, bondsProb);
-					textArea.append("CSV file succesfully saved as " + type + "_" + numInitNodes + "_" + bondsProb + ".csv in the folder results. Done. \n\n");
+					nodesOut = model.saveNodesResults(type, numInitNodes, bondsProb);
+					edgesOut = model.saveEdgesResults(type, numInitNodes, bondsProb);
+					textArea.append("CSV file succesfully saved in the folder results. Done. \n\n");
 				}
 				else if (type == "barabasi") {
-					out = model.saveResults(type, numInitBonds, numSteps);
-					textArea.append("CSV file succesfully saved as " + type + "_" + numInitBonds + "_" + numSteps + ".csv in the folder results. Done. \n\n");
+					nodesOut = model.saveNodesResults(type, numInitBonds, numSteps);
+					edgesOut = model.saveEdgesResults(type, numInitBonds, numSteps);
+					textArea.append("CSV file succesfully saved in the folder results. Done. \n\n");
 				}
 				else {
-					out = null;
+					nodesOut = null;
+					edgesOut = null;
 					System.out.println("Something went wrong...\n\n");
 				}
 				
 				//
 				
-				if (out != null) {
-					System.setOut(out);
-					System.out.println(results.toCSVstring());	
+				if (nodesOut != null && edgesOut != null) {
+					System.setOut(nodesOut);
+					System.out.println(results.nodesToCSVstring());	
+					
+					System.setOut(edgesOut);
+					System.out.println(results.edgesToCSVstring());	
 				}	
 			}
 		});
