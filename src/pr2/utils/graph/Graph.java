@@ -188,11 +188,36 @@ public abstract class Graph<T> {
 			}
 			tmpNodes.add(node.getKey());
 		}
-		
 		return totalConnections / potentialConnections;
 	}
 	
-
+	/**
+	 * Gets the biggest hub: the node with the greatest amount of connections.
+	 * 
+	 * @return the node of the biggest hub, or null if there are no nodes
+	 */
+	public T getBiggestHub() {
+		if (getNumberOfNodes() == 0) return null;
+		T n = getNodeList().get(0);
+		for (Map.Entry<T, HashMap<T, Integer>> node : this.g.entrySet()) {
+			if (getNumberOfConnectionsOfNode(node.getKey()) > getNumberOfConnectionsOfNode(n)) {
+				n = node.getKey();
+			}
+		}
+		return n;
+	}
+	
+	/**
+	 * Gets the number of connections of the biggest hub.
+	 * 
+	 * @return the size of the biggest hub (0 when there are no nodes)
+	 */
+	public int getBiggestHubSize() {
+		T n = getBiggestHub();
+		if (n == null) return 0;
+		return getNumberOfConnectionsOfNode(n);
+	}
+	
 	/**
 	 * Returns a string with all the nodes and all their connections.
 	 */
