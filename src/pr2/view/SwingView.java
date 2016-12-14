@@ -2,6 +2,7 @@ package pr2.view;
 
 import pr2.controller.GeneratorController;
 import pr2.model.NetworkResults;
+import pr2.utils.graph.CustomNetwork;
 import pr2.utils.graph.Graph;
 
 import java.awt.BorderLayout;
@@ -283,7 +284,7 @@ public class SwingView extends JFrame {
 		generateButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Graph<Integer> igraph = null; // Create a graph
+				Graph<Integer> igraph = new CustomNetwork<Integer>(); // Create a graph
 				
 				if (!param1TextBox.getText().isEmpty() || !param2TextBox.getText().isEmpty()) {
 					if (type == "random") {
