@@ -1,5 +1,6 @@
 package pr2.model;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
@@ -8,6 +9,11 @@ public class NetworkResults {
 	
 	public NetworkResults() {
 		// If results folder does not exist, we must create it.
+		
+		 File directory = new File("results");
+		    if (! directory.exists()) {
+		        directory.mkdir();
+		    }
 	}
 	
 	public PrintStream readResults(String type) {
