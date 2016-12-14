@@ -12,11 +12,19 @@ import java.util.Map;
  *
  * @param <T>
  */
-public class Graph<T> {
-	private HashMap<T, HashMap<T, Integer>> g;
+public abstract class Graph<T> {
+	protected HashMap<T, HashMap<T, Integer>> g;
 	
 	public Graph() {
 		g = new HashMap<T, HashMap<T, Integer>>();
+		regenerateNetwork();
+	}
+	
+	/**
+	 * Generates the network again (clear)
+	 */
+	public void regenerateNetwork() {
+		g.clear();
 	}
 	
 	/**

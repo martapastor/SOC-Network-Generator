@@ -283,7 +283,7 @@ public class SwingView extends JFrame {
 		generateButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Graph<Integer> igraph = new Graph<Integer>(); // Create a graph
+				Graph<Integer> igraph = null; // Create a graph
 				
 				if (!param1TextBox.getText().isEmpty() || !param2TextBox.getText().isEmpty()) {
 					if (type == "random") {
@@ -303,7 +303,6 @@ public class SwingView extends JFrame {
 				}
 				else if (type == "barabasi") {
 					igraph = ctrl.generateBarabasiNetwork(numInitBonds, numSteps);
-					
 				}
 				else {
 					System.err.println("Something went wrong...");
