@@ -1,10 +1,10 @@
 package pr2.controller;
 
-import pr2.utils.Graph;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import pr2.utils.graph.Graph;
 
 public class GeneratorController {
 	

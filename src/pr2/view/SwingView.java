@@ -2,7 +2,7 @@ package pr2.view;
 
 import pr2.controller.GeneratorController;
 import pr2.model.NetworkResults;
-import pr2.utils.Graph;
+import pr2.utils.graph.Graph;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
