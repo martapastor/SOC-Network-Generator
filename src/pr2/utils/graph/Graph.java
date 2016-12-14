@@ -123,6 +123,15 @@ public class Graph<T> {
 	}
 	
 	/**
+	 * Gets the number of nodes in the graph.
+	 * 
+	 * @return the number of nodes
+	 */
+	public int getNumberOfNodes() {
+		return this.g.size();
+	}
+	
+	/**
 	 * Sets the weight of a connection between two given nodes.
 	 * 
 	 * @param n1 One of the nodes in the graph
