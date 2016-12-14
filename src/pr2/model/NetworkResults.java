@@ -11,7 +11,7 @@ public class NetworkResults {
 		// If results folder does not exist, we must create it.
 		
 		 File directory = new File("results");
-		    if (! directory.exists()) {
+		    if (!directory.exists()) {
 		        directory.mkdir();
 		    }
 	}

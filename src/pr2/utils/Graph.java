@@ -128,7 +128,7 @@ public class Graph<T> {
 		for (Map.Entry<T, HashMap<T, Integer>> node : this.g.entrySet()) {
 			s.append("Node: "+node.getKey()+"\n\tConnected to: ");
 			for (Map.Entry<T, Integer> connections : node.getValue().entrySet()) {
-				s.append(connections.getKey()+"("+connections.getValue()+"), ");
+				s.append(connections.getKey()+"("+connections.getValue()+")    ");
 			}
 			s.append("\n");
 		}
