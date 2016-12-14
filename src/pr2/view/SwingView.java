@@ -57,6 +57,7 @@ public class SwingView extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(600, 400);
 		JPanel window = new JPanel(new BorderLayout());
+		window.setSize(600, 400);
 		
 		// Default title panel available in every view.
 		showTitlePanel(window);
@@ -87,7 +88,9 @@ public class SwingView extends JFrame {
 		selectNetworkPanel.add(barabasiButton);
 
 		selectNetworkPanel.setVisible(true);
-		window.add(selectNetworkPanel, BorderLayout.SOUTH);
+		window.add(selectNetworkPanel, BorderLayout.CENTER);
+		
+		showCreditsPanel(window);
 		
 		this.setLocationRelativeTo(null);
 		this.setContentPane(window);
@@ -230,16 +233,45 @@ public class SwingView extends JFrame {
 		paramsPanel.setPreferredSize(new Dimension(600, 140));
 		
 		// Initial nodes / initial bonds
+			JPanel param1Panel = new JPanel();
+			param1Panel.setSize(400, 80);
+			JLabel param1Label = new JLabel();
 			JTextField param1TextBox = new JTextField();
+		        
 			param1TextBox.setPreferredSize(new Dimension(120, 30));
-			paramsPanel.add(param1TextBox, BorderLayout.NORTH);
-		
+			param1Panel.add(param1Label, BorderLayout.CENTER);
+			param1Panel.add(param1TextBox, BorderLayout.CENTER);
+			paramsPanel.add(param1Panel, BorderLayout.NORTH);
 		
 		// Bonds probability / number of steps	
+			JPanel param2Panel = new JPanel();
+			param2Panel.setSize(400, 80);
+			JLabel param2Label = new JLabel();
 			JTextField param2TextBox = new JTextField();
-			param2TextBox.setPreferredSize(new Dimension(120, 30));
-			paramsPanel.add(param2TextBox, BorderLayout.SOUTH);
 			
+			param2TextBox.setPreferredSize(new Dimension(120, 30));
+			param2Panel.add(param2Label, BorderLayout.CENTER);
+			param2Panel.add(param2TextBox, BorderLayout.CENTER);
+			paramsPanel.add(param2Panel, BorderLayout.SOUTH);
+			
+		if (type == "random") {
+			param1Label.setText("Number of initial nodes to generate: ");
+			param1TextBox.setText(numInitNodes + "");
+			
+			param2Label.setText("Bonds probability [0-100]: ");
+			param2TextBox.setText(bondsProb + "");
+		}
+		else if (type == "barabasi") {
+			param1Label.setText("Number of bonds for each new node: ");
+			param1TextBox.setText(numInitBonds + "");
+			
+			param2Label.setText("Number of steps to perform: ");
+			param2TextBox.setText(numSteps + "");
+		}
+		else {
+			System.err.println("Something went wrong...");
+		}
+		
 		window.add(paramsPanel, BorderLayout.CENTER);
 		
 		// Generates the network
@@ -284,5 +316,25 @@ public class SwingView extends JFrame {
 
 		generatePanel.setVisible(true);
 		window.add(generatePanel, BorderLayout.SOUTH);
+	}
+
+	private void showCreditsPanel(JPanel window) {
+		JPanel creditsPanel = new JPanel();
+		creditsPanel.setPreferredSize(new Dimension(600, 80));
+		
+		JTextArea creditsText = new JTextArea("Developed by Daniel García Baameiro, Pablo García de los Salmones Valencia" +  
+				" and Marta Pastor Puente for Social Network Analysis subject" +  
+				" at Universidad Complutense de Madrid."); 
+		creditsText.setPreferredSize(new Dimension(390, 200));
+		creditsText.setFont(new Font("Helvetica", Font.PLAIN, 12));
+		creditsPanel.add(creditsText, BorderLayout.CENTER);
+		
+		creditsText.setLineWrap(true);
+	    creditsText.setWrapStyleWord(true);
+	    creditsText.setOpaque(false);
+	    creditsText.setEditable(false);
+		
+		creditsPanel.setVisible(true);
+		window.add(creditsPanel, BorderLayout.SOUTH);
 	}
 }
