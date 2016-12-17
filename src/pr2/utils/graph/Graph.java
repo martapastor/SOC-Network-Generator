@@ -131,6 +131,17 @@ public abstract class Graph<T> {
 	}
 	
 	/**
+	 * Gets a List of all nodes connected to the specified node in the graph.<br>
+	 * The List is parameterized with the same parameter as this class.
+	 * 
+	 * @param n One of the nodes in the graph
+	 * @return list of nodes connected to the specified node
+	 */
+	public List<T> getConnectionList(T n) {
+		return new ArrayList<T>(this.g.get(n).keySet());
+	}
+	
+	/**
 	 * Gets the number of nodes in the graph.
 	 * 
 	 * @return the number of nodes
