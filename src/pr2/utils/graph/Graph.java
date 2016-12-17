@@ -218,7 +218,19 @@ public abstract class Graph<T> {
 		return getNumberOfConnectionsOfNode(n);
 	}
 	
+	/**
+	 * Gets the shortest distance between nodes
+	 * 
+	 * @param n1 One of the nodes in the graph
+	 * @param n2 One of the nodes in the graph
+	 * @return shortest distance between nodes if both nodes exist in the graph and there is a path between them, -1 otherwise
+	 */
 	public int getPathDistance(T n1, T n2) {
+		if (n1.equals(n2)) return 0;
+		if (!nodeExists(n1) || !nodeExists(n2)) {
+			return -1; // ?
+		}
+		
 		int distance = 0;
 		List<T> lastStep = new ArrayList<T>();
 		List<T> tmpLastStep = new ArrayList<T>();
