@@ -218,6 +218,34 @@ public abstract class Graph<T> {
 		return getNumberOfConnectionsOfNode(n);
 	}
 	
+	public int getPathDistance(T n1, T n2) {
+		int distance = 0;
+		List<T> lastStep = new ArrayList<T>();
+		List<T> tmpLastStep = new ArrayList<T>();
+		List<T> oldSteps = new ArrayList<T>();
+		lastStep.add(n1);
+		oldSteps.add(n1);
+		
+		while (!lastStep.isEmpty() && distance < this.getNumberOfNodes()) {
+			distance++;
+			tmpLastStep.clear();
+			for (T n : lastStep) {
+				for (Map.Entry<T, Integer> connection : this.g.get(n).entrySet()) {
+					if (connection.getKey().equals(n2)) {
+						return distance;
+					}
+					if (!oldSteps.contains(connection.getKey())) {
+						tmpLastStep.add(connection.getKey());
+					}
+				}
+			}
+			lastStep.clear();
+			lastStep.addAll(tmpLastStep);
+			oldSteps.addAll(lastStep);
+		}
+		return -1;
+	}
+	
 	/**
 	 * Returns a string with all the nodes and all their connections.
 	 */
