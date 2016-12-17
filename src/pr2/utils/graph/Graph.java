@@ -142,6 +142,16 @@ public abstract class Graph<T> {
 	}
 	
 	/**
+	 * Gets The number of nodes connected to the specified node.
+	 * 
+	 * @param n One of the nodes in the graph
+	 * @return number of nodes connected to the specified node
+	 */
+	public int getConnectionsOfNode(T n) {
+		return this.g.get(n).size();
+	}
+	
+	/**
 	 * Gets the number of nodes in the graph.
 	 * 
 	 * @return the number of nodes
@@ -267,6 +277,32 @@ public abstract class Graph<T> {
 			oldSteps.addAll(lastStep);
 		}
 		return -1;
+	}
+	
+	/**
+	 * Gets clustering coefficient for a node
+	 * 
+	 * @return the clustering coefficient for a node
+	 */
+	public double getNodeClusteringCoefficient(T n) {
+		if (!nodeExists(n)) {
+			return -1;
+		}
+		//return (2 * ?) / (getConnectionsOfNode(n) * (getConnectionsOfNode(n)-1));
+		return 0.0;
+	}
+	
+	/**
+	 * Gets the medium clustering coefficient for the network
+	 * 
+	 * @return the medium clustering coefficient for the network
+	 */
+	public double getClusteringCoefficient() {
+		double cc = 0;
+		for (Map.Entry<T, HashMap<T, Integer>> node : this.g.entrySet()) {
+			cc += getNodeClusteringCoefficient(node.getKey());
+		}
+		return cc / getNumberOfNodes();
 	}
 	
 	/**
