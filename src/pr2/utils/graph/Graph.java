@@ -364,5 +364,20 @@ public abstract class Graph<T> {
 		}
 		return s.toString();
 	}
+	
+	/**
+	 * Gets a string with a summary of the analytics.
+	 * 
+	 * @return summary of analytics
+	 */
+	public String getAnalitics() {
+		StringBuilder s = new StringBuilder();
+		s.append("Density: " + getGraphDensity() + "\n");
+		s.append("Biggest Hub Size: " + getBiggestHub() + "\n");
+		//s.append("Average Path length: " + getMediumPathDistance() + "\n");
+		s.append("Clustering Coefficient: " + getClusteringCoefficient() + "\n");
+		
+		return s.toString();
+	}
 }
 
