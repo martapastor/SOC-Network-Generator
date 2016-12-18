@@ -373,7 +373,7 @@ public abstract class Graph<T> {
 	public String getAnalitics() {
 		StringBuilder s = new StringBuilder();
 		s.append("Density: " + getGraphDensity() + "\n");
-		s.append("Connections of most connected node: " + getMostConnectedNodeSize() + "\n");
+		s.append("Biggest Hub Size: " + getMostConnectedNodeSize() + "\n");
 		//s.append("Average Path length: " + getMediumPathDistance() + "\n");
 		//s.append("Clustering Coefficient: " + getClusteringCoefficient() + "\n");
 		
