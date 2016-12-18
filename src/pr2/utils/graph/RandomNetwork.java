@@ -6,9 +6,9 @@ import java.util.List;
 public class RandomNetwork extends Graph<Integer> {
 	
 	private int numInitNodes;
-	private int bondsProb;
+	private double bondsProb;
 	
-	public RandomNetwork(int numInitNodes, int bondsProb) {
+	public RandomNetwork(int numInitNodes, double bondsProb) {
 		super();
 		this.numInitNodes = numInitNodes;
 		this.bondsProb = bondsProb;
@@ -28,7 +28,7 @@ public class RandomNetwork extends Graph<Integer> {
 		for (Integer n1 : getNodeList()) { // For each node...
 			for (Integer n2 : getNodeList()) { // For each node again...
 				if (!tmpNodes.contains(n2) && !n1.equals(n2)) { // If we haven't used this node yet
-					if (Math.random() < (this.bondsProb / 100.0)) { 
+					if (Math.random() < this.bondsProb) { 
 						nodeConnect(n1, n2); // Add a connection between the two nodes
 					}
 				}
@@ -47,7 +47,7 @@ public class RandomNetwork extends Graph<Integer> {
 		if (!nodeExists(n)) {
 			return -1;
 		}
-		return (this.bondsProb / 100.0);
+		return this.bondsProb;
 	}
 	
 	@Override

@@ -32,7 +32,7 @@ public class SwingView extends JFrame {
 	
 	private static Integer numInitNodes = 1000;
 	
-	private static Integer bondsProb = 10;
+	private static double bondsProb = 0.1;
 	
 	private static Integer numInitBonds = 4;
 	
@@ -265,7 +265,7 @@ public class SwingView extends JFrame {
 			param1Label.setText("Number of initial nodes to generate: ");
 			param1TextBox.setText(numInitNodes + "");
 			
-			param2Label.setText("Bonds probability [0-100]: ");
+			param2Label.setText("Bonds probability [0.0-1.0]: ");
 			param2TextBox.setText(bondsProb + "");
 		}
 		else if (type == "barabasi") {
@@ -295,7 +295,7 @@ public class SwingView extends JFrame {
 				if (!param1TextBox.getText().isEmpty() || !param2TextBox.getText().isEmpty()) {
 					if (type == "random") {
 						numInitNodes = Integer.parseInt(param1TextBox.getText());
-						bondsProb = Integer.parseInt(param2TextBox.getText());
+						bondsProb = Double.parseDouble(param2TextBox.getText());
 					}
 					else if (type == "barabasi") {
 						numInitBonds = Integer.parseInt(param1TextBox.getText());

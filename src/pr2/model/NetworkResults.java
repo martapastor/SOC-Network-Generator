@@ -22,7 +22,7 @@ public class NetworkResults {
 		return out;
 	}
 	
-	public PrintStream saveNodesResults(String type, Integer param1, Integer param2) {
+	public PrintStream saveNodesResults(String type, Integer param1, double param2) {
 		PrintStream out = null;
 		try {
 			out = new PrintStream(new FileOutputStream("results/" + type + "_" + param1 + "_" + param2 + "_nodes.csv"));
@@ -34,7 +34,7 @@ public class NetworkResults {
 		return out;
 	}
 	
-	public PrintStream saveEdgesResults(String type, Integer param1, Integer param2) {
+	public PrintStream saveEdgesResults(String type, Integer param1, double param2) {
 		PrintStream out = null;
 		try {
 			out = new PrintStream(new FileOutputStream("results/" + type + "_" + param1 + "_" + param2 + "_edges.csv"));

@@ -10,7 +10,7 @@ public class GeneratorController {
 		
 	}
 	
-	public Graph<Integer> generateRandomNetwork(int numInitNodes, int bondsProb) {
+	public Graph<Integer> generateRandomNetwork(int numInitNodes, double bondsProb) {
 		Graph<Integer> network = new RandomNetwork(numInitNodes, bondsProb);
 		return network;
 	}
