@@ -62,6 +62,15 @@ public class BarabasiNetwork extends Graph<Integer> {
 		}
 	}
 	
+	@Override
+	public double getNodeClusteringCoefficient(Integer n) {
+		if (!nodeExists(n)) {
+			return -1;
+		}
+		return (this.numSteps / 8.0) * (Math.pow(Math.log(this.numInitBonds), 2)) / this.numInitBonds;
+	}
+	
+	@Override
 	public String toString() {
 		return "Barabasi Network\n"+super.toString();
 	}

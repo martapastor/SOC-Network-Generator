@@ -42,6 +42,15 @@ public class RandomNetwork extends Graph<Integer> {
 		 */
 	}
 	
+	@Override
+	public double getNodeClusteringCoefficient(Integer n) {
+		if (!nodeExists(n)) {
+			return -1;
+		}
+		return (this.bondsProb / 100.0);
+	}
+	
+	@Override
 	public String toString() {
 		return "Random Network\n"+super.toString();
 	}

@@ -21,4 +21,9 @@ public class CustomNetwork<T> extends Graph<T> {
 		// TODO Read files and load data into graph
 	}
 	
+	@Override
+	public double getNodeClusteringCoefficient(T n) {
+		return 0.0;
+	}
+	
 }

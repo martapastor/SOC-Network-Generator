@@ -305,13 +305,7 @@ public abstract class Graph<T> {
 	 * 
 	 * @return the clustering coefficient for a node
 	 */
-	public double getNodeClusteringCoefficient(T n) {
-		if (!nodeExists(n)) {
-			return -1;
-		}
-		//return (2 * ?) / (getConnectionsOfNode(n) * (getConnectionsOfNode(n)-1));
-		return 0.0;
-	}
+	public abstract double getNodeClusteringCoefficient(T n);
 	
 	/**
 	 * Gets the medium clustering coefficient for the network
