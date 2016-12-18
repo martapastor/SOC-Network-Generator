@@ -19,6 +19,7 @@ public class RandomNetwork extends Graph<Integer> {
 	 * Generates the network again as a Random network
 	 */
 	public void regenerateNetwork() {
+		this.g.clear();
 		for (int i = 0; i < this.numInitNodes; i++) { // Add numInitNodes nodes (the "object" used for the node is an integer, so nodes will be: 0, 1, 2, 3, ...)
 			nodeInsert(i);
 		}
@@ -27,7 +28,7 @@ public class RandomNetwork extends Graph<Integer> {
 		for (Integer n1 : getNodeList()) { // For each node...
 			for (Integer n2 : getNodeList()) { // For each node again...
 				if (!tmpNodes.contains(n2)) { // If we haven't used this node yet
-					if (Math.random() < (this.bondsProb / 100.0)) { // 10% probability
+					if (Math.random() < (this.bondsProb / 100.0)) { 
 						nodeConnect(n1, n2); // Add a connection between the two nodes
 					}
 				}
