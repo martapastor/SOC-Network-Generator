@@ -27,7 +27,7 @@ public class RandomNetwork extends Graph<Integer> {
 		List<Integer> tmpNodes = new ArrayList<Integer>(); // Keep a list of nodes already used
 		for (Integer n1 : getNodeList()) { // For each node...
 			for (Integer n2 : getNodeList()) { // For each node again...
-				if (!tmpNodes.contains(n2)) { // If we haven't used this node yet
+				if (!tmpNodes.contains(n2) && !n1.equals(n2)) { // If we haven't used this node yet
 					if (Math.random() < (this.bondsProb / 100.0)) { 
 						nodeConnect(n1, n2); // Add a connection between the two nodes
 					}
