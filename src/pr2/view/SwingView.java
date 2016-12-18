@@ -147,6 +147,7 @@ public class SwingView extends JFrame {
 		}
 		else {
 			textArea.append(results.toString() + "\n\n");
+			textArea.append(results.getAnalitics() + "\n\n");
 			
 			textArea.append("Network succesfully created. Done. \n\n");
 		}
