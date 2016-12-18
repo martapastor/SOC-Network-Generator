@@ -280,6 +280,27 @@ public abstract class Graph<T> {
 	}
 	
 	/**
+	 * Gets the medium distance of all paths between nodes.<br>
+	 * Nodes not connected with a path are not taken into account.
+	 * 
+	 * @return medium distance of paths
+	 */
+	public double getMediumPathDistance() {
+		double d = 0, tmpDistance;
+		int pathsFound = 0;
+		for (Map.Entry<T, HashMap<T, Integer>> n1 : this.g.entrySet()) {
+			for (Map.Entry<T, HashMap<T, Integer>> n2 : this.g.entrySet()) {
+				tmpDistance = getPathDistance(n1.getKey(), n2.getKey());
+				if (tmpDistance > 0) {
+					d += tmpDistance;
+					pathsFound++;
+				}
+			}
+		}
+		return d / pathsFound;
+	}
+	
+	/**
 	 * Gets clustering coefficient for a node
 	 * 
 	 * @return the clustering coefficient for a node
