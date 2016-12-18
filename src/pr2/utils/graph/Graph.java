@@ -375,7 +375,7 @@ public abstract class Graph<T> {
 		s.append("Density: " + getGraphDensity() + "\n");
 		s.append("Biggest Hub Size: " + getBiggestHub() + "\n");
 		//s.append("Average Path length: " + getMediumPathDistance() + "\n");
-		s.append("Clustering Coefficient: " + getClusteringCoefficient() + "\n");
+		//s.append("Clustering Coefficient: " + getClusteringCoefficient() + "\n");
 		
 		return s.toString();
 	}
