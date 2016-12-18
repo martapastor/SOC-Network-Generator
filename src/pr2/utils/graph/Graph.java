@@ -213,11 +213,11 @@ public abstract class Graph<T> {
 	}
 	
 	/**
-	 * Gets the biggest hub: the node with the greatest amount of connections.
+	 * Gets the most connected node.
 	 * 
-	 * @return the node of the biggest hub, or null if there are no nodes
+	 * @return the most connected node, or null if there are no nodes
 	 */
-	public T getBiggestHub() {
+	public T getMostConnectedNode() {
 		if (getNumberOfNodes() == 0) return null;
 		T n = getNodeList().get(0);
 		for (Map.Entry<T, HashMap<T, Integer>> node : this.g.entrySet()) {
@@ -229,12 +229,12 @@ public abstract class Graph<T> {
 	}
 	
 	/**
-	 * Gets the number of connections of the biggest hub.
+	 * Gets the number of connections of the most connected node.
 	 * 
-	 * @return the size of the biggest hub (0 when there are no nodes)
+	 * @return the number of connections of the most connected node (0 when there are no nodes)
 	 */
-	public int getBiggestHubSize() {
-		T n = getBiggestHub();
+	public int getMostConnectedNodeSize() {
+		T n = getMostConnectedNode();
 		if (n == null) return 0;
 		return getNumberOfConnectionsOfNode(n);
 	}
@@ -373,7 +373,7 @@ public abstract class Graph<T> {
 	public String getAnalitics() {
 		StringBuilder s = new StringBuilder();
 		s.append("Density: " + getGraphDensity() + "\n");
-		s.append("Biggest Hub Size: " + getBiggestHub() + "\n");
+		s.append("Connections of most connected node: " + getMostConnectedNodeSize() + "\n");
 		//s.append("Average Path length: " + getMediumPathDistance() + "\n");
 		//s.append("Clustering Coefficient: " + getClusteringCoefficient() + "\n");
 		
