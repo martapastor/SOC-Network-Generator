@@ -12,5 +12,9 @@
 hs_err_pid*
 /bin/
 
-# Results folder
+# Results folder #
 /results/
+
+# Eclipse files #
+*.classpath
+*.project
