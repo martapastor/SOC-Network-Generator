@@ -25,7 +25,12 @@ public class NetworkResults {
 	public PrintStream saveNodesResults(String type, Integer param1, double param2) {
 		PrintStream out = null;
 		try {
-			out = new PrintStream(new FileOutputStream("results/" + type + "_" + param1 + "_" + param2 + "_nodes.csv"));
+			if (type == "barabasi") {
+				out = new PrintStream(new FileOutputStream("results/" + type + "_" + param1 + "_" + (int) param2 + "_nodes.csv"));
+			}
+			else {
+				out = new PrintStream(new FileOutputStream("results/" + type + "_" + param1 + "_" + param2 + "_nodes.csv"));
+			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			// e.printStackTrace();
@@ -37,7 +42,12 @@ public class NetworkResults {
 	public PrintStream saveEdgesResults(String type, Integer param1, double param2) {
 		PrintStream out = null;
 		try {
-			out = new PrintStream(new FileOutputStream("results/" + type + "_" + param1 + "_" + param2 + "_edges.csv"));
+			if (type == "barabasi") {
+				out = new PrintStream(new FileOutputStream("results/" + type + "_" + param1 + "_" + (int) param2 + "_edges.csv"));
+			}
+			else {
+				out = new PrintStream(new FileOutputStream("results/" + type + "_" + param1 + "_" + param2 + "_edges.csv"));
+			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			// e.printStackTrace();
