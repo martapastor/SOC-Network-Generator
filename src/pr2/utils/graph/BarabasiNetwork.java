@@ -19,6 +19,8 @@ public class BarabasiNetwork extends Graph<Integer> {
 	 * Generates the network again as a Barabasi network
 	 */
 	public void regenerateNetwork() {
+		int sumNetworkDegrees = 0;
+		
 		this.g.clear();
 		// Initial number of nodes: m_0 = m + 1, where m is the number of bonds a new node enter in the network with.
 		// igraph.getNodeList().size = m_0 + t, where t is the number of the steps (i.e. the number of nodes added).
@@ -34,6 +36,7 @@ public class BarabasiNetwork extends Graph<Integer> {
 			for (Integer n2 : getNodeList()) { // For each node again...
 				if (!tmpInitNodes.contains(n2) && n1 != n2) {
 					nodeConnect(n1, n2); // Add a connection between the two nodes
+					sumNetworkDegrees += 2;
 				}
 			}
 			tmpInitNodes.add(n1); // We have already used this node, lets add it here.
@@ -41,24 +44,31 @@ public class BarabasiNetwork extends Graph<Integer> {
 		
 		Integer n = this.numInitBonds + 1;
 		
-		// Add a new node in each step and connect it to m other different nodes
+		// Add a new node in each step and connect it to m other different nodes using preferential attachment
+		Random ranProb = new Random();
+		int m;
 		for (int i = 0; i < this.numSteps; i++) {
 			nodeInsert(n);
 			List<Integer> tmpNodes = new ArrayList<Integer>(); // Keep a list of nodes already used
-			for (int j = 0; j < this.numInitBonds; j++) {
-				Random ran = new Random();
-				int m = ran.nextInt(getNodeList().size());
+			for (int j = 0; j < this.numInitBonds; j++) {	
+				do {
+					int prob = ranProb.nextInt(sumNetworkDegrees - 1); // Select probability randomly
+					int select = this.getConnectionsOfNode(0); // Keep current probability beggining from node 0
+					m = 1;
+					
+					while (select < prob) { // If current probability has not reached the wanted one...
+						select += this.getConnectionsOfNode(m);
+						m++;
+					}
+					
+				} while (tmpNodes.contains(m-1) || n == m-1); // If selected node has already been conected to new node
 				
-				while (tmpNodes.contains(m) || n == m) { // If we haven't used this node yet
-					m = ran.nextInt(this.numInitBonds);
-				}
+				nodeConnect(n, m-1);
 				
-				nodeConnect(n, m);
-				
-				tmpNodes.add(m); // We have already used this node, let's add it here.
+				tmpNodes.add(m-1); // We have already used this node, let's add it here.
 			}
-			
-			n += 1;
+			sumNetworkDegrees += this.numInitBonds * 2; // Update total network degree
+			n++;
 		}
 	}
 	
