@@ -46,18 +46,26 @@ public class BarabasiNetwork extends Graph<Integer> {
 		
 		// Add a new node in each step and connect it to m other different nodes using preferential attachment
 		Random ranProb = new Random();
-		int m;
+		int m = 1;
 		for (int i = 0; i < this.numSteps; i++) {
 			nodeInsert(n);
 			List<Integer> tmpNodes = new ArrayList<Integer>(); // Keep a list of nodes already used
+			List<Integer> sortedNodes = new ArrayList<Integer>();
+			
+			for (int k = 0; k < this.getNumberOfNodes(); k++) {
+				sortedNodes.add(k, this.getConnectionsOfNode(k));
+			}
+			
 			for (int j = 0; j < this.numInitBonds; j++) {	
-				do {
+				do {	
+					quicksort(sortedNodes, 0, this.getNumberOfNodes() - 1);
+					
 					int prob = ranProb.nextInt(sumNetworkDegrees - 1); // Select probability randomly
-					int select = this.getConnectionsOfNode(0); // Keep current probability beggining from node 0
+					int select = sortedNodes.get(0);
 					m = 1;
 					
 					while (select < prob) { // If current probability has not reached the wanted one...
-						select += this.getConnectionsOfNode(m);
+						select += sortedNodes.get(m);
 						m++;
 					}
 					
@@ -65,11 +73,61 @@ public class BarabasiNetwork extends Graph<Integer> {
 				
 				nodeConnect(n, m-1);
 				
+				int tmp_n = this.getConnectionsOfNode(n);
+				int tmp_m = this.getConnectionsOfNode(m - 1);
+				sortedNodes.remove(n);
+				sortedNodes.add(n, tmp_n);
+				sortedNodes.remove(m);
+				sortedNodes.add(m, tmp_m);
+				
 				tmpNodes.add(m-1); // We have already used this node, let's add it here.
 			}
 			sumNetworkDegrees += this.numInitBonds * 2; // Update total network degree
 			n++;
 		}
+	}
+	
+	private void quicksort(List<Integer> sortedNodes, int a, int b) {
+		if (a <= b) {
+			int p = partition(sortedNodes, a, b);
+			quicksort(sortedNodes, a, p - 1);
+			quicksort(sortedNodes, p + 1, b);
+		}
+	}
+	
+	private int partition(List<Integer> sortedNodes, int a, int b) {
+		int i, j, p = 0;
+		Integer aux;
+		
+		i = a + 1;
+		j = b;
+		
+		while (i <= j) {
+			if ((sortedNodes.get(i) < sortedNodes.get(a)) && (sortedNodes.get(j) > sortedNodes.get(a))) {
+				aux = sortedNodes.get(i);
+				sortedNodes.set(i, sortedNodes.get(j));
+				sortedNodes.set(j, aux);
+				
+				i++;
+				j--;
+			}
+			else {
+				if (sortedNodes.get(i) >= sortedNodes.get(a)) {
+					i++;
+				}
+				if (sortedNodes.get(j) <= sortedNodes.get(a)) {
+					j--;
+				}
+			}
+		}
+		
+		p = j;
+		
+		aux = sortedNodes.get(a);
+		sortedNodes.set(a, sortedNodes.get(p));
+		sortedNodes.set(p, aux);
+		
+		return p;
 	}
 	
 	@Override
