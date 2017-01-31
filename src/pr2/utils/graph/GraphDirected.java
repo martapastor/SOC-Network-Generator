@@ -117,29 +117,6 @@ public class GraphDirected<NodeType> {
 		return this.lastTimestamp;
 	}
 	
-	/**
-	 * Returns a string with all the nodes and all their connections.
-	 */
-	
-	public String toString() {
-		StringBuilder s = new StringBuilder();
-		
-		s.append(nodes.size() + " nodes have been added to the network. \n \n");
-		int duration = getLastTimestamp() - getFirstTimestamp();
-		s.append(edges.size() + " edges have been generated between them for " + duration + " seconds. \n \n");
-		/*
-		for (Map.Entry<NodeType, HashMap<NodeType, Integer>> node : this.edges.entrySet()) {
-			s.append("Node: "+node.getKey()+"\n\tConnected to: ");
-			for (Map.Entry<NodeType, Integer> connections : node.getValue().entrySet()) {
-				s.append(connections.getKey()+"("+connections.getValue()+")    ");
-			}
-			s.append("\n");
-		}
-		*/
-		return s.toString();
-	}
-	
-	
 	public String nodesToCSVstring() {
 		StringBuilder s = new StringBuilder();
 		s.append("Id;Label\n");
@@ -161,6 +138,11 @@ public class GraphDirected<NodeType> {
 	
 	public String toString() {
 		StringBuilder s = new StringBuilder();
+		
+		s.append(nodes.size() + " nodes have been added to the network. \n \n");
+		int duration = getLastTimestamp() - getFirstTimestamp();
+		s.append(edges.size() + " edges have been generated between them for " + duration + " seconds. \n \n");
+		
 		for (NodeType node : this.nodes) {
 			s.append(node + ":\n");
 			for (Edge<NodeType> edge : this.edges) {
