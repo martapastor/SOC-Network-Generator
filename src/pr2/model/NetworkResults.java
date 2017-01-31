@@ -25,7 +25,7 @@ public class NetworkResults {
 	public PrintStream saveNodesResults(String type, Integer param1, double param2) {
 		PrintStream out = null;
 		try {
-			if (type == "barabasi") {
+			if (type == "barabasi" || type == "socialdynamics") {
 				out = new PrintStream(new FileOutputStream("results/" + type + "_" + param1 + "_" + (int) param2 + "_nodes.csv"));
 			}
 			else {
@@ -42,7 +42,7 @@ public class NetworkResults {
 	public PrintStream saveEdgesResults(String type, Integer param1, double param2) {
 		PrintStream out = null;
 		try {
-			if (type == "barabasi") {
+			if (type == "barabasi" || type == "socialdynamics") {
 				out = new PrintStream(new FileOutputStream("results/" + type + "_" + param1 + "_" + (int) param2 + "_edges.csv"));
 			}
 			else {

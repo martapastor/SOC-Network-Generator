@@ -4,6 +4,8 @@ import pr2.controller.GeneratorController;
 import pr2.model.NetworkResults;
 import pr2.utils.graph.CustomNetwork;
 import pr2.utils.graph.Graph;
+import pr2.utils.graph.GraphDirected;
+import pr2.utils.graph.SocialDynamicsNetwork;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -37,6 +39,10 @@ public class SwingView extends JFrame {
 	private static Integer numInitBonds = 4;
 	
 	private static Integer numSteps = 1000;
+	
+	private static Integer socialInitNodes = 56;
+	
+	private static Integer duration = 1000;
 	
 	private static Boolean error = false;
 	
@@ -92,6 +98,17 @@ public class SwingView extends JFrame {
 			}
 		});
 		selectNetworkPanel.add(barabasiButton);
+		
+		JButton socialDynamicsButton = new JButton("Social dynamics");
+		socialDynamicsButton.setPreferredSize(new Dimension(200, 30));
+		socialDynamicsButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				type = "socialdynamics";
+				paramsWindow();
+			}
+		});
+		selectNetworkPanel.add(socialDynamicsButton);
 
 		selectNetworkPanel.setVisible(true);
 		window.add(selectNetworkPanel, BorderLayout.CENTER);
@@ -216,6 +233,100 @@ public class SwingView extends JFrame {
 		this.setVisible(true);
 	}
 	
+	private void resultsWindow(GraphDirected<Integer> results, Boolean error) {
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(600, 400);
+		JPanel window = new JPanel(new BorderLayout());
+		
+		// Default title panel available in every view.
+		showTitlePanel(window);
+		
+		JPanel leftMarginPanel = new JPanel();	
+		leftMarginPanel.setPreferredSize(new Dimension(80, 100));
+		
+		JPanel rightMarginPanel = new JPanel();	
+		rightMarginPanel.setPreferredSize(new Dimension(80, 100));
+			
+		JPanel textAreaPanel = new JPanel(new BorderLayout(0, 0));
+		textAreaPanel.setPreferredSize(new Dimension(400, 200));
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setEditable(false);
+		textAreaPanel.add(new JScrollPane(textArea));
+		
+		window.add(leftMarginPanel, BorderLayout.WEST);
+		window.add(textAreaPanel, BorderLayout.CENTER);
+		window.add(rightMarginPanel, BorderLayout.EAST);
+		
+		if (error) {
+			textArea.append("ERROR: the network cannot be generated. \n\n");
+		}
+		else {
+			textArea.append(results.toString() + "\n\n");
+			//textArea.append(results.getAnalitics() + "\n\n");
+			
+			textArea.append("Network succesfully created. Done. \n\n");
+		}
+		
+		JPanel buttonsPanel = new JPanel();
+		buttonsPanel.setPreferredSize(new Dimension(600, 40));
+		
+		JButton backButton = new JButton("Back");
+		backButton.setPreferredSize(new Dimension(120, 30));
+		backButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				initWindow();
+			}
+		});
+		buttonsPanel.add(backButton);
+		
+		JButton saveButton = new JButton("Save");
+		
+		if (error) {
+			saveButton.setEnabled(false);
+		}
+		
+		saveButton.setPreferredSize(new Dimension(120, 30));
+		saveButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				PrintStream nodesOut, edgesOut;
+				
+				//
+				
+				if (type == "socialdynamics") {
+					nodesOut = model.saveNodesResults(type, socialInitNodes, duration);
+					edgesOut = model.saveEdgesResults(type, socialInitNodes, duration);
+					textArea.append("CSV file succesfully saved in the folder results. Done. \n\n");
+				}
+				else {
+					nodesOut = null;
+					edgesOut = null;
+					System.out.println("Something went wrong...\n\n");
+				}
+				
+				//
+				
+				if (nodesOut != null && edgesOut != null) {
+					System.setOut(nodesOut);
+					System.out.println(results.nodesToCSVstring());	
+					
+					System.setOut(edgesOut);
+					System.out.println(results.edgesToCSVstring());	
+				}	
+			}
+		});
+		buttonsPanel.add(saveButton);
+		
+		buttonsPanel.setVisible(true);
+		window.add(buttonsPanel, BorderLayout.SOUTH);
+		
+		this.setLocationRelativeTo(null);
+		this.setContentPane(window);
+		this.setVisible(true);
+	}
+	
 	private void showTitlePanel(JPanel window) {
 		// Default title panel available in every view.
 		JPanel titlePanel = new JPanel();
@@ -275,6 +386,13 @@ public class SwingView extends JFrame {
 			param2Label.setText("Number of steps to perform: ");
 			param2TextBox.setText(numSteps + "");
 		}
+		else if (type == "socialdynamics") {
+			param1Label.setText("Number of nodes to generate:");
+			param1TextBox.setText(socialInitNodes + "");
+			
+			param2Label.setText("Duration of the network (s): ");
+			param2TextBox.setText(duration + "");
+		}
 		else {
 			System.err.println("Something went wrong...");
 		}
@@ -291,6 +409,7 @@ public class SwingView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Graph<Integer> igraph = new CustomNetwork<Integer>(); // Create a graph
+				GraphDirected<Integer> dgraph = new SocialDynamicsNetwork(0, 0);
 				
 				if (!param1TextBox.getText().isEmpty() || !param2TextBox.getText().isEmpty()) {
 					if (type == "random") {
@@ -300,6 +419,10 @@ public class SwingView extends JFrame {
 					else if (type == "barabasi") {
 						numInitBonds = Integer.parseInt(param1TextBox.getText());
 						numSteps = Integer.parseInt(param2TextBox.getText());
+					}
+					else if (type == "socialdynamics") {
+						socialInitNodes = Integer.parseInt(param1TextBox.getText());
+						duration = Integer.parseInt(param2TextBox.getText());
 					}
 				}
 				
@@ -311,11 +434,19 @@ public class SwingView extends JFrame {
 				else if (type == "barabasi") {
 					igraph = ctrl.generateBarabasiNetwork(numInitBonds, numSteps);
 				}
+				else if (type == "socialdynamics") {
+					dgraph = new SocialDynamicsNetwork(socialInitNodes, numSteps);
+				}
 				else {
 					System.err.println("Something went wrong...");
 				}
 				
-				resultsWindow(igraph, error);
+				if (type == "socialdynamics") {
+					resultsWindow(dgraph, error);
+				}
+				else {
+					resultsWindow(igraph, error);
+				}
 			}
 		});
 		generatePanel.add(generateButton);

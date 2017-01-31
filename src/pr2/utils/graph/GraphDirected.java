@@ -78,6 +78,28 @@ public class GraphDirected<NodeType> {
 		updateTimestampRange(timestamp);
 	}
 	
+	public int getAttackConnectionsOfNode(NodeType n) {
+		int connections = 0;
+		for (int i = 0; i < this.edges.size(); i++) {
+			if (this.edges.get(i).node2 == n) {
+				connections++;
+			}
+		}
+		
+		return connections;
+	}
+	
+	public NodeType getTargetNode(NodeType n) {
+		NodeType targetNode = null;
+		for (int i = 0; i < this.edges.size(); i++) {
+			if (this.edges.get(i).node1 == n) {
+				targetNode = this.edges.get(i).node2;
+			}
+		}
+		
+		return targetNode;
+	}
+	
 	public void setDeletionTimestamp(NodeType n1, NodeType n2, int timestamp) {
 		for (Edge<NodeType> edge : this.edges) {
 			if (edge.node1.equals(n1) && edge.node2.equals(n2) && (edge.timestampDeletion == -1)) {
@@ -93,6 +115,28 @@ public class GraphDirected<NodeType> {
 	
 	public int getLastTimestamp() {
 		return this.lastTimestamp;
+	}
+	
+	/**
+	 * Returns a string with all the nodes and all their connections.
+	 */
+	
+	public String toString() {
+		StringBuilder s = new StringBuilder();
+		
+		s.append(nodes.size() + " nodes have been added to the network. \n \n");
+		int duration = getLastTimestamp() - getFirstTimestamp();
+		s.append(edges.size() + " edges have been generated between them for " + duration + " seconds. \n \n");
+		/*
+		for (Map.Entry<NodeType, HashMap<NodeType, Integer>> node : this.edges.entrySet()) {
+			s.append("Node: "+node.getKey()+"\n\tConnected to: ");
+			for (Map.Entry<NodeType, Integer> connections : node.getValue().entrySet()) {
+				s.append(connections.getKey()+"("+connections.getValue()+")    ");
+			}
+			s.append("\n");
+		}
+		*/
+		return s.toString();
 	}
 	
 	

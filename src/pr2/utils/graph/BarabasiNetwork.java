@@ -73,12 +73,9 @@ public class BarabasiNetwork extends Graph<Integer> {
 				
 				nodeConnect(n, m-1);
 				
-				int tmp_n = this.getConnectionsOfNode(n);
-				int tmp_m = this.getConnectionsOfNode(m - 1);
-				sortedNodes.remove(n);
-				sortedNodes.add(n, tmp_n);
-				sortedNodes.remove(m);
-				sortedNodes.add(m, tmp_m);
+				int tmp = this.getConnectionsOfNode(n);
+				sortedNodes.set(n, this.getConnectionsOfNode(m - 1));
+				sortedNodes.set(m, tmp);
 				
 				tmpNodes.add(m-1); // We have already used this node, let's add it here.
 			}
