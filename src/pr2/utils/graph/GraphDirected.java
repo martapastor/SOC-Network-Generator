@@ -115,5 +115,19 @@ public class GraphDirected<NodeType> {
 		return s.toString();
 	}
 	
+	public String toString() {
+		StringBuilder s = new StringBuilder();
+		for (NodeType node : this.nodes) {
+			s.append(node + ":\n");
+			for (Edge<NodeType> edge : this.edges) {
+				if (node.equals(edge.node1)) {
+					int endTimestamp = (edge.timestampDeletion == -1) ? this.lastTimestamp : edge.timestampDeletion;
+					s.append("\t-> " + edge.node2 + " (" + edge.timestampCreation + ", "+ endTimestamp + ") [" + edge.weight + "]\n");
+				}
+			}
+		}
+		return s.toString();
+	}
+	
 }
 
