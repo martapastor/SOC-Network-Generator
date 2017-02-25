@@ -459,7 +459,7 @@ public class SwingView extends JFrame {
 		JPanel creditsPanel = new JPanel();
 		creditsPanel.setPreferredSize(new Dimension(600, 80));
 		
-		JTextArea creditsText = new JTextArea("Developed by Daniel Garcia Baameiro, Pablo Garcia de los Salmones Valencia" +  
+		JTextArea creditsText = new JTextArea("Developed by Pablo Garcia de los Salmones Valencia" +  
 				" and Marta Pastor Puente for Social Network Analysis subject" +  
 				" at Universidad Complutense de Madrid."); 
 		creditsText.setPreferredSize(new Dimension(390, 200));
